@@ -11,7 +11,6 @@ const alphabet = [
   "J",
   "K",
   "L",
-  "L",
   "M",
   "N",
   "O",
@@ -28,11 +27,18 @@ const alphabet = [
   "Z",
 ];
 export function keyboardInit() {
-  let keyboard = document.getElementById("keyboard");
-  for (let char of alphabet) {
-    let letter = document.createElement("div");
+  const keyboard = document.getElementById("keyboard");
+  for (const char of alphabet) {
+if (alphabet.indexOf(char)%9 === 0) {
+  const lineLetter = document.createElement("div");
+  lineLetter.classList.add("line-letter");
+  keyboard.append(lineLetter);
+} 
+  const lineInsertLetter = document.querySelector("#keyboard>.line-letter:last-child");
+    const letter = document.createElement("div");
     letter.classList.add("letter");
+    letter.classList.add("active");
     letter.innerHTML = char;
-    keyboard.append(letter);
+    lineInsertLetter.append(letter);
   }
 }
