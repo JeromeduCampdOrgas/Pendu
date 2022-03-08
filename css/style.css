@@ -8,8 +8,13 @@ body {
     min-height:100vh;
     display:flex;
     flex-direction: column;
+    font-family: 'Lato', sans-serif;
 }
+
+/* ************************** */
 /* ****** mise en page ****** */
+/* ************************** */
+
 header {
     display:flex;
     align-items: center;
@@ -31,6 +36,8 @@ div[id="game"] {
     width:60%;
 }
 
+/* --------------- keyboard ------------- */
+
 div[id="keyboard"] {
     display:flex;
     justify-content: center;
@@ -50,6 +57,10 @@ div[id="keyboard"] .letter {
     transition: .05s all ease-in-out;
 }
 
+div[id="keyboard"] .letter:hover {
+    cursor:default;
+}
+
 div[id="keyboard"] .letter.active:hover {
     cursor:pointer;
     transform:scale(1.15);
@@ -57,6 +68,53 @@ div[id="keyboard"] .letter.active:hover {
     background-color: #e4e4e4;
 }
 
-div[id="result"] {
+div[id="keyboard"] .letter.notfind {
+    background-color: #f1b3b3;
+}
+
+div[id="keyboard"] .letter.find {
+    background-color: #b3f1bd;
+}
+
+div[id="part"] {
     width:40%;
+}
+
+/* --------------- mot à trouver ------------- */
+
+div[id="word-location"] {
+    margin: 100px 0;
+    display: flex;
+    justify-content: center;
+ }
+div[id="word-location"] span.letter {
+    display:inline-block;
+    text-align:center;
+    font-size:40px;
+    font-weight:700;
+    width: 60px;
+    height: 60px;
+    border-bottom:2px solid #000;
+    margin:4px;
+    line-height: 60px;
+}
+
+/* --------------- résultat ------------- */
+div[id="result"] {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+div[id="result"]  {
+    font-size:40px;
+    font-weight: 700;;
+}
+
+div[id="result"] .win {
+    color : rgb(0, 179, 24);
+}
+
+div[id="result"] .loose {
+    color : red;
 }

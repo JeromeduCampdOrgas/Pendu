@@ -26,6 +26,7 @@ const alphabet = [
   "Y",
   "Z",
 ];
+
 export function keyboardInit() {
   const keyboard = document.getElementById("keyboard");
   for (const char of alphabet) {
