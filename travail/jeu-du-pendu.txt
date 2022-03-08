@@ -1,0 +1,26 @@
+Jeu du pendu
+
+- maquette :
+	- mot à trouver sous la forme underscore
+	- espace clavier virtuel => générer en js : tableau alphabet => 3 états : en attente / clické bon / clické faux (2 visuels différents lettre trouvée ou non)
+		const alphabet = ["A","B" ...] => js génère le clavier
+	- dessin de la potence : potence est déjà dessinée reste le pendu morceau par morceau =>  6-7 essais
+	- liste de mots => système de niveau / mots nombre de lettres (à parti d'un fichier ? quel type ?)
+	- bouton commencer => tire au sort un mot et initialise l'interface
+	- en cours de partie bouton commencer => bouton abandon qui donne la solution
+	- fin de partie gagnée / perdue => message position fixed par dessus bgc transparent au clic => réinitialisation du jeu ? nouveau mot dans le niveau de difficulté choisi ?
+
+
+- scripts :
+	- liste de mots dans un tableau
+
+		objet mots
+ 			"level" => 2
+			"intitulé" => cuisine
+ 			liste de mots => ["mot1","mot2" ... ] ]
+		Niveau : facile = level 1 / Moyen = level 2 / Difficile = level 3 => liste des mots par intitulé
+
+	- tirage au sort du mot
+	- gestion du clavier
+	- apparition des lettres
+	- apparition du pendu
