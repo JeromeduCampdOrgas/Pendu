@@ -4,7 +4,31 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>Jeu du pendu</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <nav>
+        <label for="level">Niveau</label>
+        <select name="level" id="level">
+          <option value="1">Facile</option>
+          <option value="2">Moyen</option>
+          <option value="3">Difficile</option>
+        </select>
+      </nav>
+      <h1>Jeu du pendu</h1>
+    </header>
+    <div class="container">
+      <div class="game">
+        <div class="word"></div>
+        <div id="keyboard"></div>
+      </div>
+      <div class="result">
+        <div class="hanged"></div>
+        <div class="start"></div>
+      </div>
+    </div>
+    <script src="index.js" type="module"></script>
+  </body>
 </html>
