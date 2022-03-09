@@ -44,24 +44,26 @@ export function wordToFindIinit(word) {
                 } );
             }
         }
-        keyPushed.removeEventListener("click", verifLetterInWord);
-            key.classList.remove("active");
-      });
-}
+      keyPushed.removeEventListener("click", verifLetterInWord);
+      key.classList.remove("active");
+    });
+  }
 }
 
 export function letterInSpan(letter, index) {
-    // récupère le span correspondant à l'index pour afficher la lettre
-const spanLetter = document.querySelector('#word-location [data-id="'+index+'"]');
-spanLetter.innerHTML = letter.toUpperCase();
+  // récupère le span correspondant à l'index pour afficher la lettre
+  const spanLetter = document.querySelector(
+    '#word-location [data-id="' + index + '"]'
+  );
+  spanLetter.innerHTML = letter.toUpperCase();
 }
 
-function displayResult(result,classe) {
-    const insertResult = document.getElementById("result");
-    const insertResultH2 = document.createElement("h2");
-    insertResultH2.innerHTML = result.toUpperCase();
-    insertResultH2.classList.add(classe);
-    insertResult.append(insertResultH2);
+function displayResult(result, classe) {
+  const insertResult = document.getElementById("result");
+  const insertResultH2 = document.createElement("h2");
+  insertResultH2.innerHTML = result.toUpperCase();
+  insertResultH2.classList.add(classe);
+  insertResult.append(insertResultH2);
 }
 
 function displayHanged(count) {
