@@ -1,8 +1,8 @@
-import { wordInlistLevel } from "./words.js";
+import { wordInlistType } from "./words.js";
 import { keyboardInit } from "./clavier.js";
 
-export function wordToFindIinit(word) {
-  console.log(word);
+export function wordToFindIinit(word,list) {
+  console.log("mot à trouver : "+word);
   // réinitialise le mot à vide et le résultat dans le DOM + cache bouton recommencer
   document.getElementById("word-location").innerHTML="";
   document.getElementById("result").innerHTML="";
@@ -40,7 +40,7 @@ export function wordToFindIinit(word) {
                 }
             } );
             if (found === word.length) {
-                displayResult("vous avez gagné !","win");
+                displayResult("vous avez gagné !","win",list);
             }
         } else {
             // lettre non trouvée => modif touche + compteur + pendu 
@@ -48,7 +48,7 @@ export function wordToFindIinit(word) {
             count++;
             displayHanged(count);
             if (count === 6) {
-                displayResult("vous avez perdu !","loose");
+                displayResult("vous avez perdu !","loose",list);
                 word.forEach( (letterWord,index) => {
                         letterInSpan(letterWord, index);
                 } );
@@ -70,7 +70,7 @@ export function letterInSpan(letter, index) {
   spanLetter.innerHTML = letter.toUpperCase();
 }
 
-function displayResult(result, classe) {
+function displayResult(result, classe,list) {
   // affiche le résultat
   const insertResult = document.getElementById("result");
   const insertResultH2 = document.createElement("h2");
@@ -83,11 +83,10 @@ function displayResult(result, classe) {
   const restart = document.querySelector("#start>button");
   restart.classList.remove("display-none");
   restart.onclick = function() {
-    const level = document.querySelector("#level").value;
-    console.log(level);
-    const word = wordInlistLevel(level);
+    const type = document.querySelector("#type").value;
+    const word = wordInlistType(type,list);
     keyboardInit();
-    wordToFindIinit(word);
+    wordToFindIinit(word.mot,list);
   }
 }
 

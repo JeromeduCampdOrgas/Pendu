@@ -2,67 +2,23 @@ import { wordToFindIinit } from "./word-to-find.js";
 import { keyboardInit } from "./clavier.js";
 
 export class words {
-  constructor(level, listOfWords) {
-    this.level = level;
+  constructor(type, listOfWords) {
+    this.type = type;
     this.listOfWords = [];
   }
-  selectLevel() {
-    switch (this.level) {
-      case "level1":
-        this.listOfWords = [
-          "Ado",
-          "Bis",
-          "Cor",
-          "Fac",
-          "Sot",
-          "Gaz",
-          "Glu",
-          "Ski",
-          "Jet",
-          "Mai",
-        ];
-        break;
-      case "level2":
-        this.listOfWords = [
-          "Ardu",
-          "Atre",
-          "Cire",
-          "Corse",
-          "Rhum",
-          "Thym",
-          "Kaki",
-          "Taie",
-          "Taux",
-          "Clip",
-        ];
-        break;
-        break;
-      case "level3":
-        this.listOfWords = [
-          "Honni",
-          "Banjo",
-          "Igloo",
-          "Seaux",
-          "Seuil",
-          "Tyran",
-          "Boeuf",
-          "Moult",
-          "Muscs",
-          "Menthe",
-        ];
-        break;
-    }
+  selectType(type,list) {
+    this.listOfWords = list.filter(line => line.type === type);
   }
 }
 
-export function initLevel() {
-  const select = document.querySelector("#level");
+export function initType(list) {
+  const select = document.querySelector("#type");
   select.addEventListener("change", function () {
     // récupère le nouveau mot en fonction du niveau
-    const level = this.value;
-    const word = wordInlistLevel(level);
+    const type = this.value;
+    const word = wordInlistType(type,list);
     keyboardInit();
-    wordToFindIinit(word);
+    wordToFindIinit(word.mot,list);
   });
 }
 
@@ -73,14 +29,14 @@ export function randomWord(liste) {
   return liste[index];
 }
 
-export function wordInlistLevel(level) {
-  const listWords = new words(level);
-  listWords.selectLevel(level);
+export function wordInlistType(type,list) {
+  const listWords = new words(type);
+  listWords.selectType(type,list);
   return randomWord(listWords.listOfWords);
 }
 
 export function selectOptionInit(option) {
-  const select = document.getElementById("level");
+  const select = document.getElementById("type");
   for (const type of option) {
     const selectOption = document.createElement("option");
     selectOption.value = type;

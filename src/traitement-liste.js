@@ -11,5 +11,5 @@ export function listeType(liste) {
   liste.forEach((element) => {
     type.includes(element.type) ? "" : type.push(element.type);
   });
-  return type;
+  return type.sort();
 }

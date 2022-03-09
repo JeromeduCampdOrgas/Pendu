@@ -35,7 +35,7 @@ header label {
     font-size:20px;
 }
 
-header select[id="level"] {
+header select[id="type"] {
     padding:5px 20px;
     margin-left:10px;
 }
