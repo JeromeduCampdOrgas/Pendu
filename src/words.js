@@ -1,55 +1,81 @@
-import { wordToFindIinit } from "./word-to-find";
+import { wordToFindIinit } from "./word-to-find.js";
+import { keyboardInit } from "./clavier.js";
 
-export const level1 = [
-  "Ado",
-  "Bis",
-  "Cor",
-  "Fac",
-  "Sot",
-  "Gaz",
-  "Glu",
-  "Ski",
-  "Jet",
-  "Mai",
-];
+export class words {
+constructor (level, listOfWords) {
+    this.level = level;
+    this.listOfWords = [];
+}
+selectLevel() {
+    switch (this.level) {
+        case "level1" :
+            this.listOfWords = [
+                "Ado",
+                "Bis",
+                "Cor",
+                "Fac",
+                "Sot",
+                "Gaz",
+                "Glu",
+                "Ski",
+                "Jet",
+                "Mai",
+              ];
+        break;
+        case "level2" :
+            this.listOfWords = [
+                "Ardu",
+                "Atre",
+                "Cire",
+                "Corse",
+                "Rhum",
+                "Thym",
+                "Kaki",
+                "Taie",
+                "Taux",
+                "Clip",
+              ];
+        break;
+        break;
+        case "level3" :
+            this.listOfWords = [
+                "Honni",
+                "Banjo",
+                "Igloo",
+                "Seaux",
+                "Seuil",
+                "Tyran",
+                "Boeuf",
+                "Moult",
+                "Muscs",
+                "Menthe",
+              ];
+        break;
+    }
+}
+}
 
-export const level2 = [
-  "Ardu",
-  "Atre",
-  "Cire",
-  "Corse",
-  "Rhum",
-  "Thym",
-  "Kaki",
-  "Taie",
-  "Taux",
-  "Clip",
-];
-
-const level3 = [
-  "Honni",
-  "Banjo",
-  "Igloo",
-  "Seaux",
-  "Seuil",
-  "Tyran",
-  "Boeuf",
-  "Moult",
-  "Muscs",
-  "Menthe",
-];
 
 export function initLevel() {
   const select = document.querySelector("#level");
-
   select.addEventListener("change", function () {
+      // récupère le nouveau mot en fonction du niveau
     const level = this.value;
-    wordToFindIinit(randomWord(level));
+    const word = wordInlistLevel(level);
+    keyboardInit();
+    wordToFindIinit(word);
   });
 }
 
 export function randomWord(liste) {
+    // tire au hasard un mot dans la liste
   const nbWords = liste.length;
-  const index = Math.round(Math.random() * nbWords);
+  const index = Math.floor(Math.random() * nbWords);
   return liste[index];
+}
+
+export function wordInlistLevel(level) {
+    const listWords = new words(level);
+    listWords.selectLevel(level);
+    return randomWord(listWords.listOfWords);
 }

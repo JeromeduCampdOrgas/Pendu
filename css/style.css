@@ -31,13 +31,27 @@ header img {
     height: 40px;
 }
 
+header label {
+    font-size:20px;
+}
+
+header select[id="level"] {
+    padding:5px 20px;
+    margin-left:10px;
+}
+
 div[id="container"] {
     display:flex;
     flex:1;
+    margin: 0 auto;
 }
 
 div[id="game"] {
     flex:1;
+}
+
+.display-none {
+    display:none;
 }
 
 /* --------------- keyboard ------------- */
@@ -82,12 +96,14 @@ div[id="keyboard"] .letter.find {
 
 div[id="part"] {
     width:400px;
+    margin-left:200px;
 }
 
 /* --------------- mot à trouver ------------- */
 
 div[id="word-location"] {
-    margin: 100px 0;
+    height:70px;
+    margin: 100px 0 50px 0;
     display: flex;
     justify-content: center;
  }
@@ -129,3 +145,23 @@ div[id="result"] .win {
 div[id="result"] .loose {
     color : red;
 }
+
+/* --------------- btn restart ------------- */
+div[id="start"] {
+    display:flex;
+    justify-content: 
+    center;align-items: center;height: 200px;
+}
+div[id="start"] button {
+    border:0;
+    background-color: rgb(0, 179, 24);
+    color:#fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 20px;
+    font-weight:700;
+}
+div[id="start"] button:hover {
+    cursor: pointer;
+}
+

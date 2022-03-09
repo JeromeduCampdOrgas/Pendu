@@ -29,6 +29,7 @@ const alphabet = [
 
 export function keyboardInit() {
   const keyboard = document.getElementById("keyboard");
+  keyboard.innerHTML = "";
   for (const char of alphabet) {
 if (alphabet.indexOf(char)%9 === 0) {
   const lineLetter = document.createElement("div");
