@@ -25,7 +25,7 @@ export function wordToFindIinit(word) {
             // word.forEach((letterWord,index) => (letterKeyPushed === letterWord) ? verifLetterInWord(letterWord,index) : ''); 
             word.forEach( (letterWord,index) => {
                 if (letterKeyPushed === letterWord) {
-                    letterInSpan(letterKeyPushed, index);
+                    letterInSpan(letterWord, index);
                     found++;
                 }
             } );
@@ -36,8 +36,12 @@ export function wordToFindIinit(word) {
             // lettre non trouvée => modif touche + compteur + pendu 
             key.classList.add("notfind");
             count++;
+            displayHanged(count);
             if (count === 6) {
                 displayResult("vous avez perdu !","loose");
+                word.forEach( (letterWord,index) => {
+                        letterInSpan(letterWord, index);
+                } );
             }
         }
         keyPushed.removeEventListener("click", verifLetterInWord);
@@ -58,6 +62,11 @@ function displayResult(result,classe) {
     insertResultH2.innerHTML = result.toUpperCase();
     insertResultH2.classList.add(classe);
     insertResult.append(insertResultH2);
+}
+
+function displayHanged(count) {
+    const imgHanged = document.querySelector("#hanged>img");
+    imgHanged.src="media/potence0"+count+".png";
 }
 
 // export function verifLetterInWord(key,word) {

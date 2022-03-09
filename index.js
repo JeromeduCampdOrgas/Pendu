@@ -3,5 +3,5 @@ import { wordToFindIinit } from "./src/word-to-find.js";
 
 keyboardInit();
 
-const wordToFind = "test";
+const wordToFind = "partager";
 wordToFindIinit(wordToFind);
