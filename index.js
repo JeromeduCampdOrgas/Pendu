@@ -13,13 +13,10 @@ import {
 
 keyboardInit();
 
-// const word = wordInlistLevel("level1");
-// 
-
-
 const listeFiltre = specialChar(liste);
 const listeTypeOption = listeType(listeFiltre);
-selectOptionInit(listeTypeOption);
+selectOptionInit(listeTypeOption,"nom");
+
 const word = wordInlistType('adjectif',listeFiltre);
 wordToFindIinit(word.mot,listeFiltre);
 initType(listeFiltre);

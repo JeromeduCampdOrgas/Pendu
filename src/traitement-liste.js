@@ -1,8 +1,5 @@
 export function specialChar(liste) {
   const listeFiltre = liste.filter((word) => !word.mot.includes("'"));
-  for (const word of listeFiltre) {
-    word.mot = word.mot.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  }
   return listeFiltre;
 }
 

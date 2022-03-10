@@ -117,6 +117,11 @@ div[id="word-location"] span.letter {
     border-bottom:2px solid #000;
     margin:4px;
     line-height: 60px;
+    color:red;
+
+}
+div[id="word-location"] span.letter.found {
+    color:#000;
 }
 
 /* --------------- pendu ------------- */

@@ -35,12 +35,17 @@ export function wordInlistType(type,list) {
   return randomWord(listWords.listOfWords);
 }
 
-export function selectOptionInit(option) {
+export function selectOptionInit(option,selected = option[0]) {
   const select = document.getElementById("type");
+  let selectedIndex;
+  let i=0;
   for (const type of option) {
     const selectOption = document.createElement("option");
     selectOption.value = type;
+    (type === selected) ? selectedIndex = i : "";
     selectOption.innerText = type;
     select.append(selectOption);
+    i++;
   }
+  select.options[selectedIndex].selected=true;
 }
