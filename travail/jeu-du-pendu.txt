@@ -1,5 +1,16 @@
 Jeu du pendu
 
+********************************************************************************
+
+- nom du joueur
+- indique le nombre de parties jouées / gagnées / perdues
+
+- un nombre limité de parties ?
+
+
+
+********************************************************************************
+
 - maquette :
 	- mot à trouver sous la forme underscore
 	- espace clavier virtuel => générer en js : tableau alphabet => 3 états : en attente / clické bon / clické faux (2 visuels différents lettre trouvée ou non)

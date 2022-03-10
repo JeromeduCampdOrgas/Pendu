@@ -50,6 +50,16 @@ div[id="game"] {
     flex:1;
 }
 
+footer {
+    margin-top:auto;
+    height:40px;
+    background-color: #000;
+    color:#fff;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .display-none {
     display:none;
 }
@@ -170,3 +180,75 @@ div[id="start"] button:hover {
     cursor: pointer;
 }
 
+/* ************************** */
+/* ****** media querie ****** */
+/* ************************** */
+
+@media screen and (max-width:1215px) {
+    #container {
+        flex-direction: column;
+    }
+
+    #part {
+        order:-1;
+        margin: 0 auto;
+    }
+    #part img {
+        width:60%;
+        
+    }
+    #start {
+        height:120px
+    }
+    div[id="result"] {
+        font-size: 20px;
+        font-weight: 700;
+    }
+    div[id="word-location"]  {
+        margin-top:50px;
+    }
+}
+@media screen and (max-width:650px) {
+    div[id="keyboard"] .letter,div[id="word-location"] span.letter {
+        width: 40px;
+        height: 40px;
+    }
+    div[id="word-location"] span.letter {
+        font-size:30px;
+        line-height: 40px;
+    }
+    div[id="word-location"]  {
+        margin-top:30px;
+    }
+    header {
+        flex-direction: column;
+        height:150px;
+        padding:5px;
+    }
+    header h1 {
+        font-size:26px;
+        margin:0;
+    }
+    header nav {
+        order:2;
+        margin-top:20px;
+    }
+    }
+    @media screen and (max-width:450px) {
+        #start {
+            height: 80px;
+        }
+        div[id="keyboard"] .letter {
+            width: 30px;
+            height: 30px;
+            margin:6px;
+        }
+        div[id="word-location"] span.letter {
+            width: 22px;
+            height: 30px;
+        }
+        div[id="word-location"] span.letter {
+            font-size:22px;
+            line-height: 25px;
+        }
+    }
