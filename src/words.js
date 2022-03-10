@@ -1,4 +1,4 @@
-import { wordToFindIinit } from "./word-to-find.js";
+import { wordToFind } from "./word-to-find.js";
 import { keyboardInit } from "./clavier.js";
 
 export class words {
@@ -11,14 +11,14 @@ export class words {
   }
 }
 
-export function initType(list) {
+export function initType(list,nameGamer) {
   const select = document.querySelector("#type");
   select.addEventListener("change", function () {
     // récupère le nouveau mot en fonction du niveau
     const type = this.value;
     const word = wordInlistType(type,list);
     keyboardInit();
-    wordToFindIinit(word.mot,list);
+    wordToFind(word.mot,list,nameGamer);
   });
 }
 

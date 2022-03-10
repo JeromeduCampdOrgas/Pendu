@@ -37,7 +37,7 @@ if (alphabet.indexOf(char)%9 === 0) {
   keyboard.append(lineLetter);
 } 
   const lineInsertLetter = document.querySelector("#keyboard>.line-letter:last-child");
-    const letter = document.createElement("div");
+    const letter = document.createElement("button");
     letter.classList.add("letter");
     letter.classList.add("active");
     letter.innerHTML = char;
