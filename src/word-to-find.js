@@ -2,42 +2,45 @@ import { wordInlistType } from "./words.js";
 import { keyboardInit } from "./clavier.js";
 import { partMax } from "../index.js";
 
-export function wordToFind(word,list,nameGamer) {
+export function wordToFind(word, list, nameGamer) {
   if (nameGamer.part >= partMax) {
     endGame(nameGamer);
   } else {
     // console.log de triche
-    console.log("mot à trouver : "+word);
+    console.log("mot à trouver : " + word);
     // réinitialise le mot à vide et le résultat dans le DOM + cache bouton recommencer
-    document.getElementById("word-location").innerHTML="";
-    document.getElementById("result").innerHTML="";
+    document.getElementById("word-location").innerHTML = "";
+    document.getElementById("result").innerHTML = "";
     document.querySelector("#start>button").classList.add("display-none");
     document.querySelector("#hanged>img").src="media/potence00.png";
     // bandeau result
     displayGameBanner(nameGamer);
 
-      let count = 0,
-          found =0;
-      
-      // affiche les emplacements du mot
-      const wordLocation = document.getElementById("word-location");
-      // copie du mot avant split pour tester sans les accents
-      const wordWithoutAccent = word.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      word = word.toLowerCase().split("");
-      let i=0;
-      for (const char of word) {
-          const letter = document.createElement("span");
-          letter.classList.add("letter");
-          letter.setAttribute("data-id",i);
-          // letter.innerHTML = char;
-          wordLocation.append(letter);
-          i++;
-      }
-      // écoute sur les touches pour vérifier la concordance lettre / mot
-      const keyboard = document.querySelectorAll("#keyboard .letter");
-      for (const key of keyboard) {
-          key.addEventListener("click", function verifLetterInWord(e) {
-            if (count<6 && found !== word.length) {
+    let count = 0,
+      found = 0;
+
+    // affiche les emplacements du mot
+    const wordLocation = document.getElementById("word-location");
+    // copie du mot avant split pour tester sans les accents
+    const wordWithoutAccent = word
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+    word = word.toLowerCase().split("");
+    let i = 0;
+    for (const char of word) {
+      const letter = document.createElement("span");
+      letter.classList.add("letter");
+      letter.setAttribute("data-id", i);
+      // letter.innerHTML = char;
+      wordLocation.append(letter);
+      i++;
+    }
+    // écoute sur les touches pour vérifier la concordance lettre / mot
+    const keyboard = document.querySelectorAll("#keyboard .letter");
+    for (const key of keyboard) {
+      key.addEventListener("click", function verifLetterInWord(e) {
+        if (count < 6 && found !== word.length) {
           const keyPushed = e.target;
           const letterKeyPushed = keyPushed.innerText.toLowerCase();
           // teste le mot sans accent
@@ -56,6 +59,11 @@ export function wordToFind(word,list,nameGamer) {
                 nameGamer.wonPart++;
                   displayResult("gagné !","win",list,nameGamer);
               }
+            });
+            if (found === word.length) {
+              nameGamer.wonPart++;
+              displayResult("vous avez gagné !", "win", list, nameGamer);
+            }
           } else {
               // lettre non trouvée => modif touche + compteur + pendu 
               key.classList.add("notfind");
@@ -69,15 +77,15 @@ export function wordToFind(word,list,nameGamer) {
                   } );
               }
           }
-        keyPushed.disabled = true;
-        key.classList.remove("active");
-      } 
-    });
+          keyPushed.disabled = true;
+          key.classList.remove("active");
+        }
+      });
     }
   }
 }
 
-export function letterInSpan(letter, index,found = true) {
+export function letterInSpan(letter, index, found = true) {
   // récupère le span correspondant à l'index pour afficher la lettre
   const spanLetter = document.querySelector(
     '#word-location [data-id="' + index + '"]'
@@ -116,7 +124,7 @@ function displayGameBanner(gamer) {
     }
 }
 
-function displayResult(result, classe,list,gamer) {
+function displayResult(result, classe, list, gamer) {
   // affiche le résultat
   const insertResult = document.getElementById("result");
   const insertResultH2 = document.createElement("h2");
@@ -134,15 +142,15 @@ function displayResult(result, classe,list,gamer) {
   restart.innerHTML = restartContent;
   restart.onclick = function() {
     const type = document.querySelector("#type").value;
-    const word = wordInlistType(type,list);
+    const word = wordInlistType(type, list);
     keyboardInit();
     wordToFind(word.mot,list,gamer);
   }
 }
 
 function displayHanged(count) {
-    const imgHanged = document.querySelector("#hanged>img");
-    imgHanged.src="media/potence0"+count+".png";
+  const imgHanged = document.querySelector("#hanged>img");
+  imgHanged.src = "media/potence0" + count + ".png";
 }
 
 function endGame(gamer) {
