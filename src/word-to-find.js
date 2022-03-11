@@ -100,7 +100,7 @@ function displayGameBanner(game) {
       gameWelcome.remove();
       const gameFirst = document.createElement("h2");
       gameFirst.classList.add("focus-in","first-game");
-      gameFirst.innerHTML = "première partie";
+      gameFirst.innerHTML = "manche 1";
       insertResult.append(gameFirst);
     },2500);
   } else {
@@ -157,9 +157,9 @@ function endGame(game) {
     endGameMessage.innerHTML = `Ta partie est terminée.<br/>`;
     const winMessage = (game.wonPart > 1) ? "manches" : "manche";
     if (game.wonPart === 0 ) {
-      endGameMessage.innerHTML +=`<img src="media/gifperdu.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Quel dommage ${game.name},<br/>tu n'as gagné aucune manche.<br/>Retente ta chance`;
+      endGameMessage.innerHTML +=`<img src="media/gifperdu.webp" class="img-end" />Quel dommage ${game.name},<br/>tu n'as gagné aucune manche.<br/>Retente ta chance`;
     } else {
-      endGameMessage.innerHTML +=(game.wonPart > game.lostPart) ? `<img src="media/gifgagne.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Bravo ${game.name}<br/>tu as gagné ${game.wonPart} ${winMessage} sur ${game.roundPart}` : `<img src="media/gifperdu.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Quel dommage ${game.name},<br/>tu n'as gagné que ${game.wonPart} ${winMessage} sur ${game.roundPart}.<br/>Tu peux t'améliorer, retente ta chance`;
+      endGameMessage.innerHTML +=(game.wonPart > game.lostPart) ? `<img src="media/gifgagne.webp" class="img-end" />Bravo ${game.name}<br/>tu as gagné ${game.wonPart} ${winMessage} sur ${game.roundPart}` : `<img src="media/gifperdu.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Quel dommage ${game.name},<br/>tu n'as gagné que ${game.wonPart} ${winMessage} sur ${game.roundPart}.<br/>Tu peux t'améliorer, retente ta chance`;
     }
     const reload = document.createElement("button");
     reload.classList.add("cursor","restart","focus-in","delay2s");
