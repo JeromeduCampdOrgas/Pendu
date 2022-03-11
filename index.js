@@ -1,4 +1,4 @@
 import { gamer } from "./src/part.js";
-export const partMax = 5;
+export const partMax = 1;
 gamer();
 

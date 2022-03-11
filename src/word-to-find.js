@@ -13,7 +13,6 @@ export function wordToFind(word,list,nameGamer) {
     document.getElementById("result").innerHTML="";
     document.querySelector("#start>button").classList.add("display-none");
     document.querySelector("#hanged>img").src="media/potence00.png";
-    console.log(nameGamer);
     // bandeau result
     displayGameBanner(nameGamer);
 
@@ -55,7 +54,7 @@ export function wordToFind(word,list,nameGamer) {
               } );
               if (found === word.length) {
                 nameGamer.wonPart++;
-                  displayResult("vous avez gagné !","win",list,nameGamer);
+                  displayResult("gagné !","win",list,nameGamer);
               }
           } else {
               // lettre non trouvée => modif touche + compteur + pendu 
@@ -64,7 +63,7 @@ export function wordToFind(word,list,nameGamer) {
               displayHanged(count);
               if (count === 6) {
                 nameGamer.lostPart++;
-                  displayResult("vous avez perdu !","loose",list,nameGamer);
+                  displayResult("perdu !","loose",list,nameGamer);
                   word.forEach( (letterWord,index) => {
                           letterInSpan(letterWord, index,false);
                   } );
@@ -88,17 +87,32 @@ export function letterInSpan(letter, index,found = true) {
 }
 
 function displayGameBanner(gamer) {
-  console.log("displaygamer "+gamer);
   const insertResult = document.getElementById("result");
   if (gamer.part < 1) {
-    console.log("bienvenue");
-    const gameBanner = document.createElement("h2");
-    gameBanner.innerHTML = `Bienvenue ${gamer.name}`;
-    insertResult.append(gameBanner);
+    const gameWelcome = document.createElement("h2");
+    gameWelcome.classList.add("text-zoom-in-zoom-out","welcome");
+    const welcomeMessage = `Bienvenue ${gamer.name}`;
+    gameWelcome.innerHTML = welcomeMessage.toUpperCase();
+    insertResult.append(gameWelcome);
+    setTimeout(()=>{
+      gameWelcome.remove();
+      const gameFirst = document.createElement("h2");
+      gameFirst.classList.add("focus-in","first-game");
+      gameFirst.innerHTML = "première partie";
+      insertResult.append(gameFirst);
+    },2500);
   } else {
-      const gameBanner = document.createElement("p");
-      gameBanner.innerHTML= `Joueur ${gamer.name} / Nombre de manches jouées : ${gamer.part} sur ${partMax} / ${gamer.wonPart} gagnées / ${gamer.lostPart} perdues`;
-      insertResult.append(gameBanner);
+      const gameRound = (gamer.part>1) ? "manches" : "manche";
+      const winMessage = (gamer.wonPart > 1) ? "manches gagnées" : "manche gagnée";
+      const lostMessage = (gamer.lostPart > 1) ? "manche perdues" : "manche perdue";
+      const gamePart = document.createElement("div");
+      gamePart.classList.add("part");
+      gamePart.innerHTML= `${gamer.name} tu as joué ${gamer.part} ${gameRound} sur ${partMax}`;
+      insertResult.append(gamePart);
+      const resultDetail = document.createElement("div");
+      resultDetail.classList.add("result-detail");
+      resultDetail.innerHTML =`<span class="won">${gamer.wonPart} ${winMessage}</span><span class="lost">${gamer.lostPart} ${lostMessage}</span>`;
+      insertResult.append(resultDetail);
     }
 }
 
@@ -108,18 +122,20 @@ function displayResult(result, classe,list,gamer) {
   const insertResultH2 = document.createElement("h2");
   insertResult.innerHTML = "";
   insertResultH2.innerHTML = result.toUpperCase();
-  insertResultH2.classList.add(classe);
+  insertResultH2.classList.add(classe,"result","anim-result");
   insertResult.append(insertResultH2);
   document.getElementById("keyboard").innerHTML = "";
 
   // bouton recommencer
+  gamer.part++;
   const restart = document.querySelector("#start>button");
+  const restartContent = (gamer.part < partMax) ? "manche suivante" : "terminer la partie"; 
   restart.classList.remove("display-none");
+  restart.innerHTML = restartContent;
   restart.onclick = function() {
     const type = document.querySelector("#type").value;
     const word = wordInlistType(type,list);
     keyboardInit();
-    gamer.part++;
     wordToFind(word.mot,list,gamer);
   }
 }
@@ -135,16 +151,17 @@ function endGame(gamer) {
     container.classList.add("end-game");
     container.innerHTML = "";
     const endGameMessage = document.createElement("div");
-    endGameMessage.innerHTML = `${gamer.name}, ta partie est terminée<br/>`;
+    endGameMessage.classList.add("anim-zoom-in");
+    endGameMessage.innerHTML = `Ta partie est terminée.<br/>`;
     const winMessage = (gamer.wonPart > 1) ? "manches" : "manche";
     if (gamer.wonPart === 0 ) {
-      endGameMessage.innerHTML +=`Dommage, tu n'as gagné aucune manche<br/>Retente ta chance`;
+      endGameMessage.innerHTML +=`Quel dommage ${gamer.name},<br/>tu n'as gagné aucune manche.<br/>Retente ta chance`;
     } else {
-      endGameMessage.innerHTML +=(gamer.wonPart > gamer.lostPart) ? `<img src="https://giphy.com/embed/iJgoGwkqb1mmH1mES3" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen>Bravo tu as gagné ${gamer.wonPart} ${winMessage} sur ${partMax}` : `Dommage, tu n'as gagné que ${gamer.wonPart} ${winMessage} sur ${partMax}<br/>Retente ta chance`;
+      endGameMessage.innerHTML +=(gamer.wonPart > gamer.lostPart) ? `Bravo ${gamer.name}<br/>tu as gagné ${gamer.wonPart} ${winMessage} sur ${partMax}` : `Quel dommage ${gamer.name},<br/>tu n'as gagné que ${gamer.wonPart} ${winMessage} sur ${partMax}.<br/>Tu peux t'améliorer, retente ta chance`;
     }
     const reload = document.createElement("button");
-    reload.classList.add("cursor");
-    reload.innerHTML = "recommence une partie";
+    reload.classList.add("cursor","restart","focus-in","delay2s");
+    reload.innerHTML = "recommencer une partie";
     container.append(endGameMessage);
     container.append(reload);
     reload.addEventListener("click", ()=> {location.reload();})
