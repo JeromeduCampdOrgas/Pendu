@@ -14,8 +14,20 @@
     <div id="cache">
       <div id="gamer">
         <form id="name-gamer">
-          <label for="name">Quel est ton nom ?</label>
-          <input type="text" id="name" name="name"  autocomplete="off" />
+          <p id="error"></p>
+          <p class="name">
+            <label for="name">Quel est ton nom ?</label>
+            <input type="text" id="name" name="name" autocomplete="off" />
+          </p>
+          <p class="nb-round">
+            <label for="round">En combien de manche veux-tu jouer ta partie :</label>
+            <select name="round" id="round">
+            <option value="1">1</option>
+            <option value="3">3</option>
+            <option value="5" selected>5</option>
+            <option value="7">7</option>
+          </select>
+        </p>
           <button>lancer la partie !</button>
         </form>
         

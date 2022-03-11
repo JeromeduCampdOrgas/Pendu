@@ -1,10 +1,9 @@
 import { wordInlistType } from "./words.js";
 import { keyboardInit } from "./clavier.js";
-import { partMax } from "../index.js";
 
-export function wordToFind(word, list, nameGamer) {
-  if (nameGamer.part >= partMax) {
-    endGame(nameGamer);
+export function wordToFind(word, list, game) {
+  if (game.part >= game.roundPart) {
+    endGame(game);
   } else {
     // console.log de triche
     console.log("mot à trouver : " + word);
@@ -14,7 +13,7 @@ export function wordToFind(word, list, nameGamer) {
     document.querySelector("#start>button").classList.add("display-none");
     document.querySelector("#hanged>img").src="media/potence00.png";
     // bandeau result
-    displayGameBanner(nameGamer);
+    displayGameBanner(game);
 
     let count = 0,
       found = 0;
@@ -56,8 +55,8 @@ export function wordToFind(word, list, nameGamer) {
                   }
               } );
               if (found === word.length) {
-                nameGamer.wonPart++;
-                  displayResult("gagné !","win",list,nameGamer);
+                game.wonPart++;
+                  displayResult("gagné !","win",list,game);
               }
           } else {
               // lettre non trouvée => modif touche + compteur + pendu 
@@ -65,8 +64,8 @@ export function wordToFind(word, list, nameGamer) {
               count++;
               displayHanged(count);
               if (count === 6) {
-                nameGamer.lostPart++;
-                  displayResult("perdu !","loose",list,nameGamer);
+                game.lostPart++;
+                  displayResult("perdu !","loose",list,game);
                   word.forEach( (letterWord,index) => {
                           letterInSpan(letterWord, index,false);
                   } );
@@ -89,12 +88,12 @@ export function letterInSpan(letter, index, found = true) {
   spanLetter.innerHTML = letter.toUpperCase();
 }
 
-function displayGameBanner(gamer) {
+function displayGameBanner(game) {
   const insertResult = document.getElementById("result");
-  if (gamer.part < 1) {
+  if (game.part < 1) {
     const gameWelcome = document.createElement("h2");
     gameWelcome.classList.add("text-zoom-in-zoom-out","welcome");
-    const welcomeMessage = `Bienvenue ${gamer.name}`;
+    const welcomeMessage = `Bienvenue ${game.name}`;
     gameWelcome.innerHTML = welcomeMessage.toUpperCase();
     insertResult.append(gameWelcome);
     setTimeout(()=>{
@@ -105,21 +104,21 @@ function displayGameBanner(gamer) {
       insertResult.append(gameFirst);
     },2500);
   } else {
-      const gameRound = (gamer.part>1) ? "manches" : "manche";
-      const winMessage = (gamer.wonPart > 1) ? "manches gagnées" : "manche gagnée";
-      const lostMessage = (gamer.lostPart > 1) ? "manche perdues" : "manche perdue";
+      const gameRound = (game.part>1) ? "manches" : "manche";
+      const winMessage = (game.wonPart > 1) ? "manches gagnées" : "manche gagnée";
+      const lostMessage = (game.lostPart > 1) ? "manche perdues" : "manche perdue";
       const gamePart = document.createElement("div");
       gamePart.classList.add("part");
-      gamePart.innerHTML= `${gamer.name} tu as joué ${gamer.part} ${gameRound} sur ${partMax}`;
+      gamePart.innerHTML= `${game.name} tu as joué ${game.part} ${gameRound} sur ${game.roundPart}`;
       insertResult.append(gamePart);
       const resultDetail = document.createElement("div");
       resultDetail.classList.add("result-detail");
-      resultDetail.innerHTML =`<span class="won">${gamer.wonPart} ${winMessage}</span><span class="lost">${gamer.lostPart} ${lostMessage}</span>`;
+      resultDetail.innerHTML =`<span class="won">${game.wonPart} ${winMessage}</span><span class="lost">${game.lostPart} ${lostMessage}</span>`;
       insertResult.append(resultDetail);
     }
 }
 
-function displayResult(result, classe, list, gamer) {
+function displayResult(result, classe, list, game) {
   // affiche le résultat
   const insertResult = document.getElementById("result");
   const insertResultH2 = document.createElement("h2");
@@ -130,16 +129,16 @@ function displayResult(result, classe, list, gamer) {
   document.getElementById("keyboard").innerHTML = "";
 
   // bouton recommencer
-  gamer.part++;
+  game.part++;
   const restart = document.querySelector("#start>button");
-  const restartContent = (gamer.part < partMax) ? "manche suivante" : "terminer la partie"; 
+  const restartContent = (game.part < game.roundPart) ? "manche suivante" : "terminer la partie"; 
   restart.classList.remove("display-none");
   restart.innerHTML = restartContent;
   restart.onclick = function() {
     const type = document.querySelector("#type").value;
     const word = wordInlistType(type, list);
     keyboardInit();
-    wordToFind(word.mot,list,gamer);
+    wordToFind(word.mot,list,game);
   }
 }
 
@@ -148,7 +147,7 @@ function displayHanged(count) {
   imgHanged.src = "media/potence0" + count + ".png";
 }
 
-function endGame(gamer) {
+function endGame(game) {
     document.getElementById("result").remove();
     const container = document.getElementById("container");
     container.classList.add("end-game");
@@ -156,11 +155,11 @@ function endGame(gamer) {
     const endGameMessage = document.createElement("div");
     endGameMessage.classList.add("anim-zoom-in");
     endGameMessage.innerHTML = `Ta partie est terminée.<br/>`;
-    const winMessage = (gamer.wonPart > 1) ? "manches" : "manche";
-    if (gamer.wonPart === 0 ) {
-      endGameMessage.innerHTML +=`<img src="media/gifperdu.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Quel dommage ${gamer.name},<br/>tu n'as gagné aucune manche.<br/>Retente ta chance`;
+    const winMessage = (game.wonPart > 1) ? "manches" : "manche";
+    if (game.wonPart === 0 ) {
+      endGameMessage.innerHTML +=`<img src="media/gifperdu.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Quel dommage ${game.name},<br/>tu n'as gagné aucune manche.<br/>Retente ta chance`;
     } else {
-      endGameMessage.innerHTML +=(gamer.wonPart > gamer.lostPart) ? `<img src="media/gifgagne.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Bravo ${gamer.name}<br/>tu as gagné ${gamer.wonPart} ${winMessage} sur ${partMax}` : `<img src="media/gifperdu.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Quel dommage ${gamer.name},<br/>tu n'as gagné que ${gamer.wonPart} ${winMessage} sur ${partMax}.<br/>Tu peux t'améliorer, retente ta chance`;
+      endGameMessage.innerHTML +=(game.wonPart > game.lostPart) ? `<img src="media/gifgagne.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Bravo ${game.name}<br/>tu as gagné ${game.wonPart} ${winMessage} sur ${game.roundPart}` : `<img src="media/gifperdu.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Quel dommage ${game.name},<br/>tu n'as gagné que ${game.wonPart} ${winMessage} sur ${game.roundPart}.<br/>Tu peux t'améliorer, retente ta chance`;
     }
     const reload = document.createElement("button");
     reload.classList.add("cursor","restart","focus-in","delay2s");

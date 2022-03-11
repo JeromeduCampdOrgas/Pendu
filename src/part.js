@@ -19,28 +19,37 @@ export function gamer() {
         gamerWrapper.classList.add("active");
         button.addEventListener("click", function(event) {
             event.preventDefault();
-            cache.classList.remove("active");
-            gamerWrapper.classList.remove("active");
-            const inputValue = document.getElementById("name").value;
-            const nameGamer = {
-                name : inputValue,
-                part : 0,
-                lostPart : 0,
-                wonPart:0,
-            };
+            const inputName = document.getElementById("name");
+            const inputValue = inputName.value;
+            if (inputValue === "") {
+                const error = document.getElementById("error");
+                error.innerHTML = "Tu dois indiquer ton nom";
+                inputName.classList.add("error");
+            } else {
+                cache.classList.remove("active");
+                gamerWrapper.classList.remove("active");
+                const selectValue = document.getElementById("round").value;
+                const game = {
+                    name : inputValue,
+                    part : 0,
+                    lostPart : 0,
+                    wonPart:0,
+                    roundPart : parseInt(selectValue),
+                };
 
-            keyboardInit();
+                keyboardInit();
 
-            // intialisation des listes de mot par type + select option du html
-            const typeDefault = "nom";
-            const listeFiltre = specialChar(liste);
-            const listeTypeOption = listeType(listeFiltre);
-            selectOptionInit(listeTypeOption,typeDefault);
-            initType(listeFiltre,nameGamer);
+                // intialisation des listes de mot par type + select option du html
+                const typeDefault = "nom";
+                const listeFiltre = specialChar(liste);
+                const listeTypeOption = listeType(listeFiltre);
+                selectOptionInit(listeTypeOption,typeDefault);
+                initType(listeFiltre,game);
 
-            // tirage du mot + algo recherche du mot
-            const word = wordInlistType(typeDefault,listeFiltre);
-            wordToFind(word.mot,listeFiltre,nameGamer);
-        })
+                // tirage du mot + algo recherche du mot
+                const word = wordInlistType(typeDefault,listeFiltre);
+                wordToFind(word.mot,listeFiltre,game);
+            }
+        });
     
 }
