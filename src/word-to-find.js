@@ -59,11 +59,6 @@ export function wordToFind(word, list, nameGamer) {
                 nameGamer.wonPart++;
                   displayResult("gagné !","win",list,nameGamer);
               }
-            });
-            if (found === word.length) {
-              nameGamer.wonPart++;
-              displayResult("vous avez gagné !", "win", list, nameGamer);
-            }
           } else {
               // lettre non trouvée => modif touche + compteur + pendu 
               key.classList.add("notfind");
@@ -163,9 +158,9 @@ function endGame(gamer) {
     endGameMessage.innerHTML = `Ta partie est terminée.<br/>`;
     const winMessage = (gamer.wonPart > 1) ? "manches" : "manche";
     if (gamer.wonPart === 0 ) {
-      endGameMessage.innerHTML +=`Quel dommage ${gamer.name},<br/>tu n'as gagné aucune manche.<br/>Retente ta chance`;
+      endGameMessage.innerHTML +=`<img src="media/gifperdu.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Quel dommage ${gamer.name},<br/>tu n'as gagné aucune manche.<br/>Retente ta chance`;
     } else {
-      endGameMessage.innerHTML +=(gamer.wonPart > gamer.lostPart) ? `Bravo ${gamer.name}<br/>tu as gagné ${gamer.wonPart} ${winMessage} sur ${partMax}` : `Quel dommage ${gamer.name},<br/>tu n'as gagné que ${gamer.wonPart} ${winMessage} sur ${partMax}.<br/>Tu peux t'améliorer, retente ta chance`;
+      endGameMessage.innerHTML +=(gamer.wonPart > gamer.lostPart) ? `<img src="media/gifgagne.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Bravo ${gamer.name}<br/>tu as gagné ${gamer.wonPart} ${winMessage} sur ${partMax}` : `<img src="media/gifperdu.webp" class="img-end" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen" allowFullScreen>Quel dommage ${gamer.name},<br/>tu n'as gagné que ${gamer.wonPart} ${winMessage} sur ${partMax}.<br/>Tu peux t'améliorer, retente ta chance`;
     }
     const reload = document.createElement("button");
     reload.classList.add("cursor","restart","focus-in","delay2s");

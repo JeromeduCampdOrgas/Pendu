@@ -313,6 +313,11 @@ div[id="start"] button:hover,button.restart:hover {
     background-color: #33642f;
 }
 
+.img-end {
+  display:block;
+  margin:10px auto;
+}
+
 /* --------------- animations ------------- */
 
 .text-zoom-in-zoom-out {
